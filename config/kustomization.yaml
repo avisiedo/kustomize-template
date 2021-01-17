@@ -1,0 +1,90 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+
+# Add the below labels to all the resources
+# https://kubectl.docs.kubernetes.io/references/kustomize/commonlabels/
+commonLabels:
+  app: $(APP_NAME)
+  owner: $(APP_OWNER)
+
+
+# Add the below annotations to all the resources
+# https://kubectl.docs.kubernetes.io/references/kustomize/commonannotations/
+commonAnnotations:
+  zone: global
+
+
+# List of resources
+# https://kubectl.docs.kubernetes.io/references/kustomize/resource/
+resources:
+  - base/deploy.yaml
+  - base/service.yaml
+
+
+# Generator options
+# https://kubectl.docs.kubernetes.io/references/kustomize/generatoroptions/
+generatorOptions:
+  labels:
+    generator: "yes"
+
+
+# Secret generators
+# https://kubectl.docs.kubernetes.io/references/kustomize/secretgenerator/
+# secretGenerator:
+# - name: app-tls
+#   files:
+#   - secret/tls.cert
+#   - secret/tls.key
+#   type: "kubernetes.io/tls"
+# - name: app-tls-namespaced
+#   # you can define a namespace to generate
+#   # a secret in, defaults to: "default"
+#   namespace: apps
+#   files:
+#   - tls.crt=catsecret/tls.cert
+#   - tls.key=secret/tls.key
+#   type: "kubernetes.io/tls"
+# - name: env_file_secret
+#   envs:
+#   - env.txt
+#   type: Opaque
+# - name: secret-with-annotation
+#   files:
+#   - app-config.yaml
+#   type: Opaque
+#   options:
+#     annotations:
+#       app_config: "true"
+#     labels:
+#       app.kubernetes.io/name: "app2"
+
+
+# configmap generators
+# configMapGenerator:
+# - name: my-java-server-props
+#   behavior: merge
+#   files:
+#   - application.properties
+#   - more.properties
+# - name: my-java-server-env-file-vars
+#   envs:
+#   - my-server-env.properties
+#   - more-server-props.env
+# - name: my-java-server-env-vars
+#   literals:
+#   - JAVA_HOME=/opt/java/jdk
+#   - JAVA_TOOL_OPTIONS=-agentlib:hprof
+#   options:
+#     disableNameSuffixHash: true
+#     labels:
+#       pet: dog
+# - name: dashboards
+#   files:
+#   - mydashboard.json
+#   options:
+#     annotations:
+#       dashboard: "1"
+#     labels:
+#       app.kubernetes.io/name: "app1"

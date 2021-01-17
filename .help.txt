@@ -1,0 +1,4 @@
+help      Display this help
+lint      Check the kubernete resources
+create    Create the resources into the logged in cloud.
+delete    Delete the resources from the logged in cloud.

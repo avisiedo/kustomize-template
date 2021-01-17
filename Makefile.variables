@@ -1,0 +1,5 @@
+# Define here all the variables to be used
+CONTAINER_IMAGE?=docker.io/hello-world
+
+
+
