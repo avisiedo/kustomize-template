@@ -50,19 +50,19 @@ container-run: check-docker
 
 .PHONY: create
 create:
-	kustomize build | kubectl create -f -
+	kustomize build --reorder none config/ | kubectl create -f -
 
 
 .PHONY: delete
 delete:
-	kustomize build | kubectl delete -f -
+	kustomize build --reorder none config/ | kubectl delete -f -
 
 
 .PHONY: lint
 lint: check-docker container-image-save
 	$(DOCKER) run --rm -v "$(PWD):/workspace:ro" -w "/workspace" -e "DOCKER_CONTENT_TRUST=1" goodwithtech/dockle --input container-image.tar
 	$(DOCKER) run --rm -i -v "$(PWD):/workspace:ro" -w "/workspace" --entrypoint "" hadolint/hadolint hadolint Dockerfile
-	kustomize build config/ | $(DOCKER) run --rm -t -v "$(PWD):/workspace" bridgecrew/checkov -d /workspace
+	kustomize build --reorder none config/ | $(DOCKER) run --rm -t -v "$(PWD):/workspace" bridgecrew/checkov -d /workspace
 
 
 .PHONY: update

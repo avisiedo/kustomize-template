@@ -1,5 +1,8 @@
-FROM docker.io/nginx:1.19.6-alpine
+FROM docker.io/nginx:1.18-alpine
 
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "sh", "-c", "cat > /dev/tcp/localhost/80 < /dev/null" ]
+ENV NGINX_PORT=8081
 
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "sh", "-c", "nc -nz localhost ${NGINX_PORT}" ]
+
+COPY default.conf.template /etc/nginx/templates/default.conf.template
 COPY src /usr/share/nginx/html

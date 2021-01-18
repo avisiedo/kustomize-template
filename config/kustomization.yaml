@@ -3,22 +3,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 
-# Add the below labels to all the resources
-# https://kubectl.docs.kubernetes.io/references/kustomize/commonlabels/
-commonLabels:
-  app: $(APP_NAME)
-  owner: $(APP_OWNER)
-
-
-# Add the below annotations to all the resources
-# https://kubectl.docs.kubernetes.io/references/kustomize/commonannotations/
-commonAnnotations:
-  zone: global
-
-
 # List of resources
 # https://kubectl.docs.kubernetes.io/references/kustomize/resource/
 resources:
+  - base/namespace.yaml
   - base/deploy.yaml
   - base/service.yaml
 
@@ -63,11 +51,10 @@ generatorOptions:
 
 # configmap generators
 # configMapGenerator:
-# - name: my-java-server-props
-#   behavior: merge
-#   files:
-#   - application.properties
-#   - more.properties
+#   - name: hello-world
+#     behavior: merge
+#     files:
+#       - application.properties
 # - name: my-java-server-env-file-vars
 #   envs:
 #   - my-server-env.properties
@@ -88,3 +75,41 @@ generatorOptions:
 #       dashboard: "1"
 #     labels:
 #       app.kubernetes.io/name: "app1"
+
+# vars:
+#   - name: NAMESPACE
+#     objref:
+#       kind: namespace
+#       name: hello-world
+#       apiVersion: v1
+#     fieldref:
+#       fieldpath: metadata.name
+#   - name: APP_NAME
+#     objref:
+#       kind: ConfigMap
+#       name: hello-world
+#       apiVersion: v1
+#     fieldref:
+#       fieldpath: data.labels_app
+#   - name: APP_OWNER
+#     objref:
+#       kind: ConfigMap
+#       name: hello-world
+#       apiVersion: v1
+#     fieldref:
+#       fieldpath: data.labels_owner
+
+
+# Add the below labels to all the resources
+# https://kubectl.docs.kubernetes.io/references/kustomize/commonlabels/
+commonLabels:
+  app: hello-world
+  owner: username
+
+
+# Add the below annotations to all the resources
+# https://kubectl.docs.kubernetes.io/references/kustomize/commonannotations/
+commonAnnotations:
+  zone: global
+
+

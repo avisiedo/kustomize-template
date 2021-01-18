@@ -1,0 +1,7 @@
+# Create the namespace
+# https://kubernetes.io/docs/tasks/administer-cluster/namespaces-walkthrough/
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hello-world
