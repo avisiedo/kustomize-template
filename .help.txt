@@ -1,4 +1,12 @@
-help      Display this help
-lint      Check the kubernete resources
-create    Create the resources into the logged in cloud.
-delete    Delete the resources from the logged in cloud.
+help                  Display this help
+
+container-build       Build the container image using the Dockerfile.
+container-push        Push the built container image.
+container-image-save  Save the built container image into container-image.tar file.
+container-run         Run the built container using CONTAINER_RUN_ARGS variable.
+
+lint                  Check the Dockerfile and kubernete resources.
+create                Create the resources into the logged in cloud.
+delete                Delete the resources from the logged in cloud.
+
+manifest-build        Build the resulting manifest by kustomize.
