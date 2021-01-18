@@ -1,0 +1,4 @@
+# Create a user for running the container is incompatible with
+# OpenShift best practices, because when running with restrictive
+# SCC profile (rootless), the non privileged user is chosen by OpenShift.
+CIS-DI-0001
